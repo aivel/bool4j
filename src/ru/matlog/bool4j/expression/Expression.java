@@ -28,7 +28,7 @@ public class Expression {
 		return operator;
 	}
 
-	public void setOperator(Operator operator) {
+	public void setOperator(final Operator operator) {
 		if (type != ExpressionType.OPERATOR) {
 			throw new IllegalMethodException("Type of expression is " + type.toString());
 		}
@@ -43,7 +43,7 @@ public class Expression {
 
 
 
-	public void setFunction(Function function) {
+	public void setFunction(final Function function) {
 		if (type != ExpressionType.FUNCTION) {
 			throw new IllegalMethodException("Type of expression is " + type.toString());
 		}
@@ -58,7 +58,7 @@ public class Expression {
 
 
 
-	public void setConstant(Boolean constant) {
+	public void setConstant(final Boolean constant) {
 		if (type != ExpressionType.CONSTANT) {
 			throw new IllegalMethodException("Type of expression is " + type.toString());
 		}
