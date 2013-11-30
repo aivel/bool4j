@@ -3,12 +3,11 @@ package ru.matlog.bool4j.expression.function;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import ru.matlog.bool4j.expression.Expression;
+
 import ru.matlog.bool4j.expression.ExpressionType;
 
-public abstract class Function {
-	
+public abstract class Function extends Expression {
 	private int argumentQuantity;
 	private Expression arguments[];
 	private String stringRepresentation;
@@ -69,4 +68,12 @@ public abstract class Function {
 		return builder.toString();
 	}
 	
+        public ExpressionType getType() {
+            return ExpressionType.FUNCTION;
+        }
+        
+        public void setExpression(Expression expr) {
+            if (!(expr instanceof Function))
+                throw new UnsupportedOperationException("Not supported yet.");
+        }
 }

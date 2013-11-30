@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class CalculableRecursiveImpl implements Calculable{
-
 	private Map<String, Boolean> variables;
 	private Expression expression;
 	
@@ -29,7 +28,6 @@ public class CalculableRecursiveImpl implements Calculable{
 
 	@Override
 	public Set<String> getVariableNames() {
-		return expression.getVariablesNames();
+            return expression.getVariablesNames();
 	}
-
 }
