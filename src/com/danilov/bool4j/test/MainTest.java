@@ -12,42 +12,44 @@ import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators;
 
 import com.danilov.bool4j.util.Util;
+import ru.matlog.bool4j.expression.Constant;
+import ru.matlog.bool4j.expression.Variable;
 
 public class MainTest {
 
 	public static void main(String[] args) {
-		Expression exp = new Expression(ExpressionType.OPERATOR);
-		Expression var1 = new Expression(ExpressionType.VARIABLE);
-		var1.setVariable("x");
-		Expression var2 = new Expression(ExpressionType.VARIABLE);
-		var2.setVariable("z");
-		Expression var3 = new Expression(ExpressionType.VARIABLE);
-		var3.setVariable("z");
-		Expression var4 = new Expression(ExpressionType.VARIABLE);
-		var4.setVariable("y");
+		Operator exp = new Operators.XOR();
+		Variable var1 = new Variable();
+		var1.setExpression("x");
+		Variable var2 = new Variable();
+		var2.setExpression("z");
+		Variable var3 = new Variable();
+		var3.setExpression("z");
+		Variable var4 = new Variable();
+		var4.setExpression("y");
 		Operator disjOperator = Operators.getOperator("*");
-		Expression disj = new Expression(ExpressionType.OPERATOR);
+		Operator disj = new Operators.CONJUNCTION();
 		disj.setOperator(disjOperator);
 		disjOperator.setFirstOperand(var1);
 		disjOperator.setSecondOperand(var2);
 		Operator conjOperator1 = Operators.getOperator("+");
-		Expression conj1 = new Expression(ExpressionType.OPERATOR);
+		Operator conj1 = new Operators.CONJUNCTION();
 		conj1.setOperator(conjOperator1);
 		conjOperator1.setFirstOperand(var3);
 		conjOperator1.setSecondOperand(var4);
 		Operator equalOperator = Operators.getOperator("<=>");
-		Expression equal = new Expression(ExpressionType.OPERATOR);
+		Operator equal = new Operators.EQUAL();
 		equal.setOperator(equalOperator);
 		equalOperator.setFirstOperand(disj);
 		equalOperator.setSecondOperand(conj1);
 		Function f = Functions.getFunction("neg");
 		f.setArguments(equal);
-		Expression neg = new Expression(ExpressionType.FUNCTION);
-		neg.setFunction(f);
+		Function neg = new Functions.NEGATIVE();
+		neg.setExpression(f);
 		Operator xor = Operators.getOperator("xor");
 		xor.setFirstOperand(neg);
-		Expression constant = new Expression(ExpressionType.CONSTANT);
-		constant.setConstant(true);
+		Constant constant = new Constant();
+		constant.setExpression(true);
 		xor.setSecondOperand(constant);
 		exp.setOperator(xor);
 		//neg((x * z )+ (z + y))
@@ -55,7 +57,7 @@ public class MainTest {
 		Set<String> s = calc.getVariableNames();
 		boolean v = calc.calculate();
 		Util.Log("res = " + v);
-		Util.Log(exp.toString()); //вывод в консоль 
+		Util.Log(exp.toString());
 	}
 
 }
