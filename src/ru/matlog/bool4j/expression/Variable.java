@@ -13,6 +13,7 @@ import java.util.Set;
  * @author Max
  */
 public class Variable extends Expression {
+	
     String var;
 
     @Override
@@ -20,14 +21,15 @@ public class Variable extends Expression {
         if (!variables.containsKey(var))
                 throw new CalculationException("Variable " + var + " is not specified!");
         
-	return variables.get(var);
+        return variables.get(var);
     }
-
-    @Override
-    public void setExpression(Object elem_expr) {
-        if (!(elem_expr instanceof String))
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        var = (String) elem_expr;
+    
+    public void setVariable(final String variable) {
+    	this.var = variable;
+    }
+    
+    public String getVariable() {
+    	return var;
     }
 
     @Override

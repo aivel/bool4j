@@ -15,15 +15,6 @@ public abstract class Operator extends Expression {
 
     private Expression firstOperand;
     private Expression secondOperand;
-    private Operator operator;
-
-    public void setOperator(Operator operator) {
-        this.operator = operator;
-    }
-
-    public Operator getOperator() {
-        return operator;
-    }
 
     public Expression getFirstOperand() {
         return firstOperand;
@@ -83,10 +74,7 @@ public abstract class Operator extends Expression {
 
     @Override
     public Boolean calculate(Map<String, Boolean> variables) {
-        return operator.apply(variables);
+        return apply(variables);
     }
-
-    @Override
-    public void setExpression(Object elem_expr) {
-    }
+    
 }

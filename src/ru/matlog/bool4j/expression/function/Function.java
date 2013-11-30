@@ -53,6 +53,11 @@ public abstract class Function extends Expression {
 		return set;
 	}
 	
+    @Override
+    public Boolean calculate(Map<String, Boolean> variables) {
+        return apply(variables);
+    }
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(getStringRepresentation()).append("(");
@@ -68,12 +73,7 @@ public abstract class Function extends Expression {
 		return builder.toString();
 	}
 	
-        public ExpressionType getType() {
-            return ExpressionType.FUNCTION;
-        }
-        
-        public void setExpression(Expression expr) {
-            if (!(expr instanceof Function))
-                throw new UnsupportedOperationException("Not supported yet.");
-        }
+    public ExpressionType getType() {
+        return ExpressionType.FUNCTION;
+    }
 }

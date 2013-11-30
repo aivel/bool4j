@@ -8,7 +8,7 @@ public final class Operators {
 
     private static final Map<String, Class> operators = new HashMap<>();
 
-    //multyply
+    //multiply
     public static final class CONJUNCTION extends Operator {
         public static final String REPRESENTATION = "*";
 
@@ -129,6 +129,10 @@ public final class Operators {
     public static void add(final Class operator, final String representation) {
         operators.put(representation, operator);
     }
+
+	public static boolean contains(final String str) {
+		return operators.containsKey(str);
+	}
 
     public static Operator getOperator(final String representation) {
         Class clazz = operators.get(representation);

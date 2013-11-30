@@ -4,6 +4,7 @@
  */
 package ru.matlog.bool4j.expression;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,25 +13,25 @@ import java.util.Set;
  * @author Max
  */
 public class Constant extends Expression {
+	
     Boolean value;
 
     @Override
     public Boolean calculate(Map<String, Boolean> variables) {
         return value;
     }
-
-    @Override
-    public void setExpression(Object elem_expr) {
-        if (!(elem_expr instanceof Boolean)) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-        value = (Boolean) elem_expr;
+    
+    public void setValue(final Boolean value) {
+    	this.value = value;
     }
-
+    
+    public Boolean getValue() {
+    	return value;
+    }
+    
     @Override
     public Set<String> getVariablesNames() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new HashSet<String>();
     }
 
     @Override
