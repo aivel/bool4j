@@ -39,6 +39,10 @@ public final class Functions {
 		functions.put(representation, clazz);
 	}
 	
+	public static boolean contains(final String str) {
+		return functions.containsKey(str);
+	}
+	
 	public static Function getFunction(final String representation) {
 		Class clazz = functions.get(representation);
 		Function o = null;

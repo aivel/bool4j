@@ -4,6 +4,6 @@ import ru.matlog.bool4j.expression.Expression;
 
 public interface Parser {
 	
-	public Expression parse(final Object object);
+	public Expression parse(final String input);
 	
 }

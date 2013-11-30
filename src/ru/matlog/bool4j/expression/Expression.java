@@ -7,6 +7,7 @@ import java.util.Set;
 import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.operator.Operator;
 
+//Сделать класс абстрактным и наследовать от него функцию, оператора etc
 public class Expression {
 	
 	private ExpressionType type;

@@ -121,6 +121,10 @@ public final class Operators {
 		operators.put(representation, operator);
 	}
 	
+	public static boolean contains(final String str) {
+		return operators.containsKey(str);
+	}
+	
 	public static Operator getOperator(final String representation) {
 		Class clazz = operators.get(representation);
 		Operator o = null;
