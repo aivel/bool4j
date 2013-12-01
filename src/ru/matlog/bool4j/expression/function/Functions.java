@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.operator.Operator;
-
+import ru.matlog.bool4j.expression.ExpressionType;
 
 public final class Functions {
+    private static final Map<String, Class> functions = new HashMap<>();
 
-	private static final Map<String, Class> functions = new HashMap<String, Class>();
 	
 	public static final class NEGATIVE extends Function {
 

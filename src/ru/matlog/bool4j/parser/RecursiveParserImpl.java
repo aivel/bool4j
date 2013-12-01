@@ -1,7 +1,9 @@
 package ru.matlog.bool4j.parser;
 
+import ru.matlog.bool4j.expression.Constant;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.ExpressionType;
+import ru.matlog.bool4j.expression.Variable;
 import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.operator.Operator;
@@ -48,26 +50,26 @@ public class RecursiveParserImpl implements Parser{
 			}
 			if (Functions.contains(tmp.toString())) {
 				Function f = Functions.getFunction(tmp.toString());
-				exp = new Expression(ExpressionType.FUNCTION);
+				exp = f;
 				Expression args[] = parseArgs(string.substring(count.i));
-				exp.setFunction(f);
 				f.setArguments(args);
 			}
 			count.i++;
 		}
 		if (isVariable) {
-			exp = new Expression(ExpressionType.VARIABLE);
-			exp.setVariable(tmp.toString());
+			Variable var = new Variable();
+			var.setVariable(tmp.toString());
+			exp = var;
 		}
 		if (isConstant) {
-			exp = new Expression(ExpressionType.CONSTANT);
+			Constant constant = new Constant();
+			exp = constant;
 			int a = Integer.valueOf(tmp.toString());
 			if (a == 1) {
-				exp.setConstant(true);
+				constant.setValue(true);
 			} else {
-				exp.setConstant(false);
+				constant.setValue(false);
 			}
-			exp.setConstant(Boolean.valueOf(tmp.toString()));
 		}
 		if (!parentheses) {
 			return exp;
@@ -93,20 +95,12 @@ public class RecursiveParserImpl implements Parser{
 				op.setFirstOperand(exp);
 				exp = parse(string, count);
 				op.setSecondOperand(exp);
-				exp = new Expression(ExpressionType.OPERATOR);
-				exp.setOperator(op);
+				exp = op;
 			}
 			if (count.i >= string.length()) {
 				break;
 			}
 		}
-		return exp;
-	}
-	
-	private Expression parseSecondOperand(final String string, final Counter count, final Operator op) {
-		Expression exp = new Expression(ExpressionType.OPERATOR);
-		exp.setOperator(op);
-		op.setSecondOperand(parse(string, count));
 		return exp;
 	}
 	

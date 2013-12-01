@@ -3,12 +3,11 @@ package ru.matlog.bool4j.expression.function;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import ru.matlog.bool4j.expression.Expression;
+
 import ru.matlog.bool4j.expression.ExpressionType;
 
-public abstract class Function {
-	
+public abstract class Function extends Expression {
 	private int argumentQuantity;
 	private Expression arguments[];
 	private String stringRepresentation;
@@ -54,6 +53,11 @@ public abstract class Function {
 		return set;
 	}
 	
+    @Override
+    public Boolean calculate(Map<String, Boolean> variables) {
+        return apply(variables);
+    }
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(getStringRepresentation()).append("(");
@@ -69,4 +73,7 @@ public abstract class Function {
 		return builder.toString();
 	}
 	
+    public ExpressionType getType() {
+        return ExpressionType.FUNCTION;
+    }
 }
