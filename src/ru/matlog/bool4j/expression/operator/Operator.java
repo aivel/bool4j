@@ -76,5 +76,5 @@ public abstract class Operator extends Expression {
     public Boolean calculate(Map<String, Boolean> variables) {
         return apply(variables);
     }
-    
+
 }

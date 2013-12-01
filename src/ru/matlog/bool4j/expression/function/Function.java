@@ -76,4 +76,5 @@ public abstract class Function extends Expression {
     public ExpressionType getType() {
         return ExpressionType.FUNCTION;
     }
+
 }
