@@ -52,8 +52,4 @@ public class Test1 implements ITest {
 		Util.Log(xor.toString());
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/max
