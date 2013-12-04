@@ -47,7 +47,6 @@ public class Test1 implements ITest {
 		Calculable calc = xor.toCalculable(new RecursiveCalculableFactoryImpl()).with("x", false).with("y", true).with("z", true);
 		Set<String> s = calc.getVariableNames();
 		boolean v = calc.calculate();
-		Util.Log(this.getClass().getSimpleName() + ": ");
 		Util.Log("res = " + v);
 		Util.Log(xor.toString());
 	}

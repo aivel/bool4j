@@ -13,7 +13,6 @@ public class Test2 implements ITest{
 	@Override
 	public void test() {
 		Parser p = new RecursiveParserImpl();
-		Util.Log(this.getClass().getSimpleName() + ": ");
 		Expression exp = p.parse("(x + y + z + z + y + u)");
 		Util.Log("Desire: (x + y + z + z + y + u)");
 		Util.Log("Result:" + exp.toString());
