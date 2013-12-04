@@ -33,7 +33,11 @@ public class CalculableRecursiveImpl implements Calculable{
 
 	@Override
 	public Calculable with(Map<String, Boolean> variables) {
-		this.variables.putAll(variables);
+		if (this.variables == null) {
+			this.variables = variables;
+		} else {
+			this.variables.putAll(variables);
+		}
 		return this;
 	}
 }

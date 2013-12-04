@@ -31,6 +31,14 @@ public abstract class Operator extends Expression {
     public void setSecondOperand(Expression secondOperand) {
         this.secondOperand = secondOperand;
     }
+    
+    public boolean firstOperandSet() {
+    	return firstOperand != null;
+    }
+    
+    public boolean secondOperandSet() {
+    	return secondOperand != null;
+    }
 
     public abstract String getStringRepresentation();
 
