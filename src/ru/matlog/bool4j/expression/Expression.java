@@ -3,37 +3,53 @@ package ru.matlog.bool4j.expression;
 import java.util.Map;
 import java.util.Set;
 
+import ru.matlog.bool4j.closures.ClosureClass;
+
 public abstract class Expression {
 	
 	/**
-	 * Вычисление значения выражения
-	 * @param variables набор переменных
-	 * @return значение полученное в результате вычислений
+	 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @param variables пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @return пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 */
     public abstract Boolean calculate(final Map<String, Boolean> variables);
     
     /**
      * 
-     * @return имена всех переменных данного выражения
+     * @return пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     public abstract Set<String> getVariablesNames();
     
     /**
      * 
-     * @return тип выражения (константа, функия, оператор etc)
+     * @return A set of Maps of variables, including its name(String) and value(Boolean).
+     */
+    //public abstract Set<Map<String, Boolean>> getVariables();
+    
+    /**
+     * 
+     * @return пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ etc)
      */
     public abstract ExpressionType getType();
     
     /**
-     * Получение объекта Calculable (для абстрагирования от конкретной реализации вычислений)
-     * @param calculableFactory фабрика объектов типа Calculable
-     * @return объект Calculable
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Calculable (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+     * @param calculableFactory пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ Calculable
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅ Calculable
      */
     public Calculable toCalculable(final CalculableFactory calculableFactory) {
 		return calculableFactory.newCalculable(this); 
     }
     
-
     @Override
     public abstract String toString();
+    
+    /**
+     * Checks if this expression with set of variables(vars) belongs to the closure class(clos_lass).
+     * @param clos_lass - closure class to check whether the expression belongs to
+     * @param vars - map of variables to be checked with.
+     * @return boolean
+     */
+    // TO BE DONE
+    //public abstract boolean belongsTo(ClosureClass clos_lass, Map<String, Boolean> vars);
 }
