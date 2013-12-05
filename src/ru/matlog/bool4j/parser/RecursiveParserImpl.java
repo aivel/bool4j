@@ -2,7 +2,6 @@ package ru.matlog.bool4j.parser;
 
 import ru.matlog.bool4j.expression.Constant;
 import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.ExpressionType;
 import ru.matlog.bool4j.expression.Variable;
 import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
@@ -18,7 +17,6 @@ public class RecursiveParserImpl implements Parser{
 	}
 	
 	public Expression parse(final String string, final Counter count) {
-		boolean isFunction = false;
 		boolean isVariable = false;
 		boolean isConstant = false;
 		boolean isOperator = false;

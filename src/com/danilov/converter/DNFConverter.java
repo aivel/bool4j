@@ -9,8 +9,8 @@ import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 import ru.matlog.bool4j.expression.Variable;
-import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.function.Function;
+import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators;
 

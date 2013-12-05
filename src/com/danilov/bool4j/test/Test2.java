@@ -1,7 +1,5 @@
 package com.danilov.bool4j.test;
 
-import java.util.Set;
-
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;

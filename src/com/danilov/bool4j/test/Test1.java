@@ -4,8 +4,6 @@ import java.util.Set;
 
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Constant;
-import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.ExpressionType;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 import ru.matlog.bool4j.expression.Variable;
 import ru.matlog.bool4j.expression.function.Function;

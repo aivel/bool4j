@@ -1,13 +1,13 @@
 package com.danilov.bool4j.test;
 
+import ru.matlog.bool4j.expression.Expression;
+import ru.matlog.bool4j.parser.Parser;
+import ru.matlog.bool4j.parser.RecursiveParserImpl;
+
 import com.danilov.bool4j.util.Util;
 import com.danilov.converter.Converter;
 import com.danilov.converter.DNFConverter;
 import com.danilov.converter.KNFConverter;
-
-import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.parser.Parser;
-import ru.matlog.bool4j.parser.RecursiveParserImpl;
 
 public class Test4 implements ITest {
 
