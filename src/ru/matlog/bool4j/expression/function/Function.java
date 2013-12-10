@@ -3,8 +3,8 @@ package ru.matlog.bool4j.expression.function;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import ru.matlog.bool4j.expression.Expression;
 
+import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.ExpressionType;
 
 public abstract class Function extends Expression {

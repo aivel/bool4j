@@ -4,8 +4,6 @@ import java.util.Set;
 
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Constant;
-import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.ExpressionType;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 import ru.matlog.bool4j.expression.Variable;
 import ru.matlog.bool4j.expression.function.Function;
@@ -47,7 +45,6 @@ public class Test1 implements ITest {
 		Calculable calc = xor.toCalculable(new RecursiveCalculableFactoryImpl()).with("x", false).with("y", true).with("z", true);
 		Set<String> s = calc.getVariableNames();
 		boolean v = calc.calculate();
-		Util.Log(this.getClass().getSimpleName() + ": ");
 		Util.Log("res = " + v);
 		Util.Log(xor.toString());
 	}
