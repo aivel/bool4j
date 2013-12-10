@@ -78,6 +78,9 @@ public class RecursiveParserImpl implements Parser{
 				char c = string.charAt(count.i);
 				if (c == ' ' || c == ')') {
 					count.i++;
+					if (isConstant) {
+						continue;
+					}
 					return exp;
 				}
 				tmp.append(c);

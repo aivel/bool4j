@@ -2,10 +2,8 @@ package ru.matlog.bool4j.closures;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.operator.Operator;
 
 public class ClosureClasses {
 	/*

@@ -17,11 +17,6 @@ import ru.matlog.bool4j.expression.operator.Operators;
 import com.danilov.bool4j.util.Util;
 import com.danilov.bool4j.util.VariablesSet;
 
-/**
- * Конвертирование в конъюнктивную нормальную форму
- * @author Семён
- *
- */
 public class KNFConverter implements Converter {
 
 	@Override
@@ -68,18 +63,24 @@ public class KNFConverter implements Converter {
 					tmp2 = tmp;
 					tmp = Operators.getOperator("+");
 					tmp.setFirstOperand(tmp2);
+					tmp.setSecondOperand(exp);
 				} else if (tmp.firstOperandSet()){
 					tmp.setSecondOperand(exp);
 				}
 			}
+			Expression sumRes = tmp;
+			if (tmp.getSecondOperand() == null) {
+				sumRes = tmp.getFirstOperand();
+			}
 			if (!res.firstOperandSet()) {
-				res.setFirstOperand(tmp);
+				res.setFirstOperand(sumRes);
 			} else if (res.firstOperandSet() && res.secondOperandSet()) {
 				tmp2 = res;
 				res = Operators.getOperator("*");
 				res.setFirstOperand(tmp2);
+				res.setSecondOperand(sumRes);
 			} else if (res.firstOperandSet()) {
-				res.setSecondOperand(tmp);
+				res.setSecondOperand(sumRes);
 			}
 		}
 		finalResult = res;

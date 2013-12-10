@@ -1,10 +1,13 @@
 package com.danilov.bool4j.test;
 import java.util.HashMap;
 
-import ru.matlog.bool4j.expression.*;
-import ru.matlog.bool4j.closures.*;
-import ru.matlog.bool4j.parser.*;
-import com.danilov.bool4j.util.*;
+import ru.matlog.bool4j.closures.ClosureClass;
+import ru.matlog.bool4j.closures.ClosureClasses;
+import ru.matlog.bool4j.expression.Expression;
+import ru.matlog.bool4j.parser.Parser;
+import ru.matlog.bool4j.parser.RecursiveParserImpl;
+
+import com.danilov.bool4j.util.Util;
 
 public class Test5 implements ITest {
 
