@@ -31,10 +31,10 @@ public class RecursiveParserImpl implements Parser{
 				count.i++;
 				break;
 			}
-			if ((c == '1' || c == '0')) { // i == 0
+			if ((c == '1' || c == '0')) { 
 				isConstant = true;
 				tmp.append(c);
-				count.i++;
+				count.i = count.i + 2;
 				break;
 			}
 			if (c != '(') {
@@ -78,9 +78,6 @@ public class RecursiveParserImpl implements Parser{
 				char c = string.charAt(count.i);
 				if (c == ' ' || c == ')') {
 					count.i++;
-					if (isConstant) {
-						continue;
-					}
 					return exp;
 				}
 				tmp.append(c);
