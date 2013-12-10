@@ -17,11 +17,6 @@ import ru.matlog.bool4j.expression.operator.Operators;
 import com.danilov.bool4j.util.Util;
 import com.danilov.bool4j.util.VariablesSet;
 
-/**
- * Конвертирование в дизъюнктивную нормальную форму
- * @author Семён
- *
- */
 public class DNFConverter implements Converter {
 
 	@Override
@@ -68,18 +63,24 @@ public class DNFConverter implements Converter {
 					tmp2 = tmp;
 					tmp = Operators.getOperator("*");
 					tmp.setFirstOperand(tmp2);
+					tmp.setSecondOperand(exp);
 				} else if (tmp.firstOperandSet()){
 					tmp.setSecondOperand(exp);
 				}
 			}
+			Expression mulRes = tmp;
+			if (tmp.getSecondOperand() == null) {
+				mulRes = tmp.getFirstOperand();
+			}
 			if (!res.firstOperandSet()) {
-				res.setFirstOperand(tmp);
+				res.setFirstOperand(mulRes);
 			} else if (res.firstOperandSet() && res.secondOperandSet()) {
 				tmp2 = res;
 				res = Operators.getOperator("+");
 				res.setFirstOperand(tmp2);
+				res.setSecondOperand(mulRes);
 			} else if (res.firstOperandSet()) {
-				res.setSecondOperand(tmp);
+				res.setSecondOperand(mulRes);
 			}
 		}
 		finalResult = res;

@@ -7,6 +7,7 @@ import ru.matlog.bool4j.parser.RecursiveParserImpl;
 import com.danilov.bool4j.util.Util;
 import com.danilov.converter.Converter;
 import com.danilov.converter.DNFConverter;
+import com.danilov.converter.JPolynomConverter;
 import com.danilov.converter.KNFConverter;
 
 public class Test4 implements ITest {
@@ -14,7 +15,7 @@ public class Test4 implements ITest {
 	@Override
 	public void test() {
 		Parser p = new RecursiveParserImpl();
-		Expression exp = p.parse("(x + y + ((z <=> z) -> y) + u)");
+		Expression exp = p.parse("((x -> (y -> z)) * (x + y))");
 		Converter c = new DNFConverter();
 		Expression exp1 = c.convert(exp);
 		if (exp1 != null) {
@@ -25,6 +26,8 @@ public class Test4 implements ITest {
 		if (exp1 != null) {
 			Util.Log(exp1.toString());
 		}
+		c = new JPolynomConverter();
+		c.convert(exp);
 	}
 
 }
