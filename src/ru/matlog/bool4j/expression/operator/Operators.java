@@ -2,6 +2,7 @@ package ru.matlog.bool4j.expression.operator;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import ru.matlog.bool4j.expression.ExpressionType;
 
 public final class Operators {

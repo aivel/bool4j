@@ -30,4 +30,14 @@ public class CalculableRecursiveImpl implements Calculable{
 	public Set<String> getVariableNames() {
             return expression.getVariablesNames();
 	}
+
+	@Override
+	public Calculable with(Map<String, Boolean> variables) {
+		if (this.variables == null) {
+			this.variables = variables;
+		} else {
+			this.variables.putAll(variables);
+		}
+		return this;
+	}
 }

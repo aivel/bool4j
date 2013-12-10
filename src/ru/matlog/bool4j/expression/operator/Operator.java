@@ -3,8 +3,8 @@ package ru.matlog.bool4j.expression.operator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import ru.matlog.bool4j.expression.Expression;
 
+import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.ExpressionType;
 
 /**
@@ -30,6 +30,14 @@ public abstract class Operator extends Expression {
 
     public void setSecondOperand(Expression secondOperand) {
         this.secondOperand = secondOperand;
+    }
+    
+    public boolean firstOperandSet() {
+    	return firstOperand != null;
+    }
+    
+    public boolean secondOperandSet() {
+    	return secondOperand != null;
     }
 
     public abstract String getStringRepresentation();
