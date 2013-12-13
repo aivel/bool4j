@@ -18,15 +18,11 @@ public class Test6 implements ITest {
 
 	@Override
 	public void test() {
-		TruthTable tt = new TruthTable();
 		ArrayList<String> vl = new ArrayList<>();
-		vl.add("a");
-		vl.add("b");
-		vl.add("c");
 		
 		Util.Log("getVarsDefenitionRange():");
 		
-		LinkedList<LinkedList<Boolean>> r = tt.getVarsDefenitionRange(vl);
+		LinkedList<LinkedList<Boolean>> r = TruthTable.getVarsDefenitionRange(vl);
 		
 		for (LinkedList<Boolean> i: r) {
 			for (Boolean j: i)
@@ -38,11 +34,11 @@ public class Test6 implements ITest {
 		Util.Log("getTruthTable():");
 		
 		Parser p = new RecursiveParserImpl();
-		Expression expr = p.parse("(a + b xor c)");
+		Expression expr = p.parse("1");
 		ArrayList<Expression> el = new ArrayList<>();
 		el.add(expr);
 		
-		Map<String, List<Boolean>> trt = tt.getTruthTable(vl, el);
+		Map<String, List<Boolean>> trt = TruthTable.getTruthTable(vl, el);
 		
 		Util.Log("String representation:\n" + TruthTable.toString(trt));
 	}

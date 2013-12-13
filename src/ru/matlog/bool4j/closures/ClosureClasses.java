@@ -2,15 +2,14 @@ package ru.matlog.bool4j.closures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import ru.matlog.bool4j.expression.Expression;
 
 import com.danilov.bool4j.util.VariablesSet;
 import com.danilov.converter.TruthTable;
-
-import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.operator.Operator;
 
 public class ClosureClasses {
 	/*
@@ -24,8 +23,7 @@ public class ClosureClasses {
 		public static final String REPRESENTATION = "T0";
 
 		@Override
-		public boolean whetherBelongs(final Expression expr,
-				final Map<String, Boolean> vars) {
+		public boolean whetherBelongs(final Expression expr) {
 			HashMap<String, Boolean> variables = new HashMap<>();
 
 			for (String var_name : expr.getVariablesNames()) {
@@ -46,8 +44,7 @@ public class ClosureClasses {
 		public static final String REPRESENTATION = "T1";
 
 		@Override
-		public boolean whetherBelongs(final Expression expr,
-				final Map<String, Boolean> vars) {
+		public boolean whetherBelongs(final Expression expr) {
 			HashMap<String, Boolean> variables = new HashMap<>();
 
 			for (String var_name : expr.getVariablesNames()) {
@@ -68,17 +65,21 @@ public class ClosureClasses {
 		public static final String REPRESENTATION = "S";
 
 		@Override
-		public boolean whetherBelongs(final Expression expr,
-				final Map<String, Boolean> vars) {
-			boolean f_neg_result = !expr.calculate(vars);
-
-			HashMap<String, Boolean> neg_vars = new HashMap<>();
-
-			for (String var_name : vars.keySet()) {
-				neg_vars.put(var_name, !vars.get(var_name));
+		public boolean whetherBelongs(final Expression expr) {
+			List<Expression> expressionsList = new LinkedList<Expression>();
+			expressionsList.add(expr);
+			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
+			Map<String, List<Boolean>> map = TruthTable.getTruthTable(vars.getKeySet(), expressionsList);
+			List<Boolean> values = map.get(TruthTable.getFuncKey(expr));
+			boolean belongs = true;
+			int size = values.size();
+			for(int i = 0; i < (size / 2); i++) {
+				if (values.get(i) != values.get(size - 1 - i)) {
+					belongs = false;
+					break;
+				}
 			}
-
-			return f_neg_result == expr.calculate(neg_vars);
+			return belongs;
 		}
 
 		@Override
@@ -92,11 +93,12 @@ public class ClosureClasses {
 		public static final String REPRESENTATION = "M";
 
 		@Override
-		public boolean whetherBelongs(final Expression expr,
-				final Map<String, Boolean> vars) {
+		public boolean whetherBelongs(final Expression expr) {
 			ArrayList<Expression> expr_lst = new ArrayList<Expression>();
-			List<String> head_col = new ArrayList<>(vars.keySet());
-			String func_key = "func: " + expr.toString();
+			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
+			List<String> head_col = vars.getKeySet();
+			
+			String func_key = TruthTable.getFuncKey(expr);
 
 			expr_lst.add(expr);
 
@@ -133,7 +135,7 @@ public class ClosureClasses {
 							}
 						}
 
-						if (!brea && diff) {
+						if (!brea) {
 							// Рассматриваемые строки сравнимы - будем
 							// сравнивать
 							boolean op_i = truth_table.get(func_key).get(i);

@@ -1,7 +1,6 @@
 package com.danilov.converter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,14 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.danilov.bool4j.util.Util;
-import com.danilov.bool4j.util.VariablesSet;
-import com.sun.org.apache.bcel.internal.generic.LSTORE;
-
-import ru.matlog.bool4j.expression.Constant;
 import ru.matlog.bool4j.expression.Expression;
 
+import com.danilov.bool4j.util.VariablesSet;
+
 public class TruthTable {
+	
+	public static final String FUNCTION_VALUE_KEY = "FUNC";
+	
 	public static LinkedList<LinkedList<Boolean>> getVarsDefenitionRange(final List<String> vars) {
 		VariablesSet vars_set = new VariablesSet(vars);
 		LinkedList<LinkedList<Boolean>> result = new LinkedList<>();
@@ -38,7 +37,7 @@ public class TruthTable {
 	}
 	
 	public static Map<String, List<Boolean>> getTruthTable(final List<String> vars_lst, final List<Expression> expressions_list) {
-		return getTruthTable(new HashSet(vars_lst), expressions_list);
+		return getTruthTable(new HashSet<String>(vars_lst), expressions_list);
 	}
 	
 	public static Map<String, List<Boolean>> getTruthTable(final Set<String> vars_set, final List<Expression> expressions_list) {
@@ -71,10 +70,14 @@ public class TruthTable {
 				expr_results.push( expr.calculate(vars_to_calc) );
 			}
 			
-			truth_table.put("func: " + expr.toString(), expr_results);
+			truth_table.put(FUNCTION_VALUE_KEY + ": " + expr.toString(), expr_results);
 		}
 		
 		return truth_table;
+	}
+	
+	public static String getFuncKey(final Expression expr) {
+		return FUNCTION_VALUE_KEY + ": " + expr.toString();
 	}
 	
 	public static String toString(Map<String, List<Boolean>> _truth_table) {
