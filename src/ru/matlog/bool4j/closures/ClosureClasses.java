@@ -123,13 +123,14 @@ public class ClosureClasses {
 						}
 
 						for (int k = 0; k < n; k++) {
-							if (diff) {
-								brea = true;
-								break;
-							}
-
-							if (to_cmp_1.get(k) != to_cmp_2.get(k))
+							if (to_cmp_1.get(k) != to_cmp_2.get(k)) {
+								if (diff) {
+									brea = true;
+									break;
+								}
+								
 								diff = true;
+							}
 						}
 
 						if (!brea && diff) {
