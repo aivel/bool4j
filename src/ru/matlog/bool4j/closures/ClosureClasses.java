@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Expression;
+import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 
 import com.danilov.bool4j.util.VariablesSet;
 import com.danilov.converter.TruthTable;
@@ -96,36 +98,25 @@ public class ClosureClasses {
 		public boolean whetherBelongs(final Expression expr) {
 			ArrayList<Expression> expr_lst = new ArrayList<Expression>();
 			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
-			List<String> head_col = vars.getKeySet();
-			
-			String func_key = TruthTable.getFuncKey(expr);
-
-			expr_lst.add(expr);
-
-			Map<String, List<Boolean>> truth_table = TruthTable.getTruthTable(
-					head_col, expr_lst);
-
-			int n = head_col.size(); // Количество переменных
+			int n = vars.getKeySet().size(); // Количество переменных
 			int n2 = (int) Math.pow(2, n);
-
+			
+			Calculable calc = expr.toCalculable(new RecursiveCalculableFactoryImpl());
 			for (int i = 0; i < n2; i++) {
+				Pair iPair = getVariableSetStringAndValue(calc, i, vars.getKeySet());
 				for (int j = i; j < n2; j++) {
 					if (i != j) {
-						ArrayList<Boolean> to_cmp_1 = new ArrayList<Boolean>();
-						ArrayList<Boolean> to_cmp_2 = new ArrayList<Boolean>();
 						boolean diff = false; // Есть ли различия в двух
 												// сравниваемых строках
 						boolean brea = false; // Более одного различия в
 												// сравниваемых строках -
 												// досрочно вышли из цикла
 
-						for (String key : head_col) {
-							to_cmp_1.add(truth_table.get(key).get(i));
-							to_cmp_2.add(truth_table.get(key).get(j));
-						}
-
+						Pair jPair = getVariableSetStringAndValue(calc, j, vars.getKeySet());
+						String str1 = iPair.str;
+						String str2 = jPair.str;
 						for (int k = 0; k < n; k++) {
-							if (to_cmp_1.get(k) != to_cmp_2.get(k)) {
+							if (str1.charAt(k) != str2.charAt(k)) {
 								if (diff) {
 									brea = true;
 									break;
@@ -138,8 +129,8 @@ public class ClosureClasses {
 						if (!brea) {
 							// Рассматриваемые строки сравнимы - будем
 							// сравнивать
-							boolean op_i = truth_table.get(func_key).get(i);
-							boolean op_j = truth_table.get(func_key).get(j);
+							boolean op_i = iPair.val;
+							boolean op_j = jPair.val;
 
 							if (op_i != op_j && op_i == true) {
 								return false;
@@ -151,6 +142,28 @@ public class ClosureClasses {
 			}
 
 			return true;
+		}
+		
+		private class Pair {
+			String str;
+			Boolean val;
+		}
+		
+		private Pair getVariableSetStringAndValue(final Calculable calc, final int pos, final List<String> variables) {
+			Pair p = new Pair();
+			StringBuilder stringBuilder = new StringBuilder();
+			Map<String, Boolean> vars = new HashMap<>();
+			for (int i = variables.size() - 1; i >= 0 ; i--) {
+				int pow = (int) Math.pow(2, i);
+				int varVal = (pos / pow) % 2;
+				boolean boolVal = varVal == 1 ? true : false;
+				stringBuilder.append(varVal);
+				vars.put(variables.get(variables.size() - i - 1), boolVal);
+			}
+			Boolean val = calc.with(vars).calculate();
+			p.str = stringBuilder.toString();
+			p.val = val;
+			return p;
 		}
 
 		@Override

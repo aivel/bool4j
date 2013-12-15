@@ -6,8 +6,8 @@ import ru.matlog.bool4j.parser.RecursiveParserImpl;
 
 import com.danilov.bool4j.util.Util;
 import com.danilov.converter.Converter;
-import com.danilov.converter.SDNFConverter;
 import com.danilov.converter.JPolynomConverter;
+import com.danilov.converter.SDNFConverter;
 import com.danilov.converter.SKNFConverter;
 
 public class Test4 implements ITest {

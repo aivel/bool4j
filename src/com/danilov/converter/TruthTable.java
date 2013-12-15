@@ -13,6 +13,12 @@ import ru.matlog.bool4j.expression.Expression;
 
 import com.danilov.bool4j.util.VariablesSet;
 
+/**
+ * 
+ * Занимает очень много памяти: (2^n) * n
+ *
+ */
+@Deprecated
 public class TruthTable {
 	
 	public static final String FUNCTION_VALUE_KEY = "FUNC";

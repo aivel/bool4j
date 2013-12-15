@@ -1,6 +1,4 @@
 package com.danilov.bool4j.test;
-import java.util.HashMap;
-
 import ru.matlog.bool4j.closures.ClosureClass;
 import ru.matlog.bool4j.closures.ClosureClasses;
 import ru.matlog.bool4j.expression.Expression;
@@ -15,7 +13,7 @@ public class Test5 implements ITest {
 	@Override
 	public void test() {
 		Parser p = new RecursiveParserImpl();
-		Expression expr = p.parse("(x + y * z)");
+		Expression expr = p.parse("(x + y * z + r + (Q <=> e + t + p + f + g + zz) + oi)");
 		Util.Log("Expression: " + expr.toString());
 		ClosureClass cc = ClosureClasses.getClosureClass("T0");
 		Util.Log("Accessory to the " + cc.getStringRepresentation() + " closure class: " + cc.whetherBelongs(expr));
