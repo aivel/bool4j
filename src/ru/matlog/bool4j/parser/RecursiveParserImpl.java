@@ -20,6 +20,7 @@ public class RecursiveParserImpl implements Parser{
 		boolean isVariable = false;
 		boolean isConstant = false;
 		boolean isOperator = false;
+		boolean isFunction = false;
 		boolean parentheses = false;
 		
 		StringBuilder tmp = new StringBuilder();
@@ -47,10 +48,12 @@ public class RecursiveParserImpl implements Parser{
 				parentheses = true;
 			}
 			if (Functions.contains(tmp.toString())) {
+				isFunction = true;
 				Function f = Functions.getFunction(tmp.toString());
 				exp = f;
-				Expression args[] = parseArgs(string.substring(count.i));
+				Expression args[] = parseArgs(string.substring(count.i + 1), count);
 				f.setArguments(args);
+				break;
 			}
 			count.i++;
 		}
@@ -102,8 +105,41 @@ public class RecursiveParserImpl implements Parser{
 		return exp;
 	}
 	
-	private Expression[] parseArgs(final String str) {
-		return null;
+	private Expression[] parseArgs(final String str, final Counter count) {
+		String argsString = extractArgsString(str);
+		count.i += argsString.length() + 2;
+		argsString = argsString.substring(1, argsString.length() - 2);
+		String[] args = argsString.split(",");
+		Expression[] arguments = new Expression[args.length];
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			StringBuilder sb = new StringBuilder();
+			sb.append("(");
+			sb.append(arg);
+			sb.append(")");
+			arg = sb.toString();
+			arguments[i] = parse(arg);
+		}
+		return arguments;
+	}
+	
+	private String extractArgsString(final String str) {
+		int parenthesesCount = 0;
+		if (str.charAt(0) != '(') {
+			//throw exception
+		} else {
+			parenthesesCount++;
+		}
+		int i = 1;
+		while(parenthesesCount > 0) {
+			if (str.charAt(i) == '(') {
+				parenthesesCount++;
+			} else if (str.charAt(i) == ')') {
+				parenthesesCount--;
+			}
+			i++;
+		}
+		return str.substring(0, i);
 	}
 	
 	private class Counter {
