@@ -71,12 +71,14 @@ public class ClosureClasses {
 			List<Expression> expressionsList = new LinkedList<Expression>();
 			expressionsList.add(expr);
 			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
-			Map<String, List<Boolean>> map = TruthTable.getTruthTable(vars.getKeySet(), expressionsList);
-			List<Boolean> values = map.get(TruthTable.getFuncKey(expr));
 			boolean belongs = true;
-			int size = values.size();
+			int n = vars.getKeySet().size(); // Количество переменных
+			int size = (int) Math.pow(2, n);
+			Calculable calc = expr.toCalculable(new RecursiveCalculableFactoryImpl());
 			for(int i = 0; i < (size / 2); i++) {
-				if (values.get(i) != values.get(size - 1 - i)) {
+				Pair p1 = getVariableSetStringAndValue(calc, i, vars.getKeySet());
+				Pair p2 = getVariableSetStringAndValue(calc, size - 1 - i, vars.getKeySet());
+				if (p1.val != p2.val) {
 					belongs = false;
 					break;
 				}
@@ -144,27 +146,7 @@ public class ClosureClasses {
 			return true;
 		}
 		
-		private class Pair {
-			String str;
-			Boolean val;
-		}
 		
-		private Pair getVariableSetStringAndValue(final Calculable calc, final int pos, final List<String> variables) {
-			Pair p = new Pair();
-			StringBuilder stringBuilder = new StringBuilder();
-			Map<String, Boolean> vars = new HashMap<>();
-			for (int i = variables.size() - 1; i >= 0 ; i--) {
-				int pow = (int) Math.pow(2, i);
-				int varVal = (pos / pow) % 2;
-				boolean boolVal = varVal == 1 ? true : false;
-				stringBuilder.append(varVal);
-				vars.put(variables.get(variables.size() - i - 1), boolVal);
-			}
-			Boolean val = calc.with(vars).calculate();
-			p.str = stringBuilder.toString();
-			p.val = val;
-			return p;
-		}
 
 		@Override
 		public String getStringRepresentation() {
@@ -194,5 +176,27 @@ public class ClosureClasses {
 		}
 
 		return cc;
+	}
+	
+	private static class Pair {
+		String str;
+		Boolean val;
+	}
+	
+	private static Pair getVariableSetStringAndValue(final Calculable calc, final int pos, final List<String> variables) {
+		Pair p = new Pair();
+		StringBuilder stringBuilder = new StringBuilder();
+		Map<String, Boolean> vars = new HashMap<>();
+		for (int i = variables.size() - 1; i >= 0 ; i--) {
+			int pow = (int) Math.pow(2, i);
+			int varVal = (pos / pow) % 2;
+			boolean boolVal = varVal == 1 ? true : false;
+			stringBuilder.append(varVal);
+			vars.put(variables.get(variables.size() - i - 1), boolVal);
+		}
+		Boolean val = calc.with(vars).calculate();
+		p.str = stringBuilder.toString();
+		p.val = val;
+		return p;
 	}
 }
