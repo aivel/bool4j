@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.operator.Operator;
-
 
 public final class Functions {
+    private static final Map<String, Class> functions = new HashMap<>();
 
-	private static final Map<String, Class> functions = new HashMap<String, Class>();
 	
 	public static final class NEGATIVE extends Function {
 
@@ -27,8 +25,6 @@ public final class Functions {
 			setArgumentQuantity(1);
 			setStringRepresentation("neg");
 		}
-		
-		
 	}; 
 	
 	static {
@@ -37,6 +33,10 @@ public final class Functions {
 	
 	public static void add(final Class clazz, final String representation) {
 		functions.put(representation, clazz);
+	}
+	
+	public static boolean contains(final String str) {
+		return functions.containsKey(str);
 	}
 	
 	public static Function getFunction(final String representation) {
@@ -49,5 +49,4 @@ public final class Functions {
 		} 
 		return o;
 	}
-	
 }
