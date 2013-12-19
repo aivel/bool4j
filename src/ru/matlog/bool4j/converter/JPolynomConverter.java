@@ -1,4 +1,4 @@
-package ru.matlog.converter;
+package ru.matlog.bool4j.converter;
 
 /*
  * Конвертер выражения в полином Жегалкина

@@ -1,13 +1,13 @@
 package ru.matlog.bool4j.test;
 
+import ru.matlog.bool4j.converter.Converter;
+import ru.matlog.bool4j.converter.JPolynomConverter;
+import ru.matlog.bool4j.converter.SDNFConverter;
+import ru.matlog.bool4j.converter.SKNFConverter;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
 import ru.matlog.bool4j.util.Util;
-import ru.matlog.converter.Converter;
-import ru.matlog.converter.JPolynomConverter;
-import ru.matlog.converter.SDNFConverter;
-import ru.matlog.converter.SKNFConverter;
 
 
 public class Test4 implements ITest {

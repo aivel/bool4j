@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ru.matlog.bool4j.converter.JPolynomConverter;
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.ExpressionType;
@@ -14,7 +15,6 @@ import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators.CONJUNCTION;
 import ru.matlog.bool4j.expression.operator.Operators.XOR;
 import ru.matlog.bool4j.util.VariablesSet;
-import ru.matlog.converter.JPolynomConverter;
 
 /**
  * Класс для хранения всех видов классов замкнутости

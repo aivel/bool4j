@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ru.matlog.bool4j.converter.TruthTable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
 import ru.matlog.bool4j.util.Util;
-import ru.matlog.converter.TruthTable;
 
 
 public class Test6 implements ITest {

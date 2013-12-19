@@ -1,4 +1,4 @@
-package ru.matlog.converter;
+package ru.matlog.bool4j.converter;
 
 import java.util.ArrayList;
 import java.util.Collections;
