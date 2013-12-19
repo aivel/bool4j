@@ -1,4 +1,4 @@
-package com.danilov.converter;
+package ru.matlog.converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,9 @@ import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators;
+import ru.matlog.bool4j.util.Util;
+import ru.matlog.bool4j.util.VariablesSet;
 
-import com.danilov.bool4j.util.Util;
-import com.danilov.bool4j.util.VariablesSet;
 
 public class SKNFConverter implements Converter {
 

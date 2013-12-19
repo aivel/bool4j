@@ -1,10 +1,10 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
+import ru.matlog.bool4j.util.Util;
 
-import com.danilov.bool4j.util.Util;
 
 public class Test2 implements ITest{
 

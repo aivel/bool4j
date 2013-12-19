@@ -1,12 +1,8 @@
 package ru.matlog.bool4j.expression;
 
 /**
- * 
- * @author Семён
- * Переменная,
- * Функция,
- * Оператор,
- * Константа
+ * РџРµСЂРµРјРµРЅРЅР°СЏ, С„СѓРЅРєС†РёСЏ, РѕРїРµСЂР°С‚РѕСЂ, РєРѕРЅСЃС‚Р°РЅС‚Р°
+ * @author Sam
  */
 public enum ExpressionType {
 	VARIABLE,

@@ -5,9 +5,14 @@ import java.util.Map;
 
 import ru.matlog.bool4j.expression.ExpressionType;
 
+/**
+ * Класс для хранения всех стандартных операторов + есть возможность расширения
+ * @author Семён
+ *
+ */
 public final class Operators {
 
-    private static final Map<String, Class> operators = new HashMap<>();
+    private static final Map<String, Class> operators = new HashMap<String, Class>();
 
     //multiply
     public static final class CONJUNCTION extends Operator {
@@ -134,7 +139,12 @@ public final class Operators {
 	public static boolean contains(final String str) {
 		return operators.containsKey(str);
 	}
-
+	
+	/**
+	 * Получение оператора по его строковому представлению
+	 * @param representation строковое представление
+	 * @return оператор
+	 */
     public static Operator getOperator(final String representation) {
         Class clazz = operators.get(representation);
         Operator o = null;

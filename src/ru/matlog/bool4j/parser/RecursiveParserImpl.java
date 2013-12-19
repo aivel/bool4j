@@ -2,6 +2,7 @@ package ru.matlog.bool4j.parser;
 
 import ru.matlog.bool4j.expression.Constant;
 import ru.matlog.bool4j.expression.Expression;
+import ru.matlog.bool4j.expression.ValidationException;
 import ru.matlog.bool4j.expression.Variable;
 import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
@@ -13,7 +14,12 @@ public class RecursiveParserImpl implements Parser{
 	@Override
 	public Expression parse(final String string) {
 		Counter count = new Counter();
-		return parse(string, count);
+		Expression e =  parse(string, count);
+		if (e == null) {
+			throw new ValidationException("Пустое выражение");
+		}
+		e.validate();
+		return e;
 	}
 	
 	public Expression parse(final String string, final Counter count) {
@@ -33,10 +39,14 @@ public class RecursiveParserImpl implements Parser{
 				break;
 			}
 			if ((c == '1' || c == '0')) { 
-				isConstant = true;
-				tmp.append(c);
-				count.i = count.i + 2;
-				break;
+				if (tmp.toString().length() > 0) {
+					//это часть переменной
+				} else {
+					isConstant = true;
+					tmp.append(c);
+					count.i = count.i + 2;
+					break;
+				}
 			}
 			if (c != '(') {
 				tmp.append(c);
@@ -71,6 +81,11 @@ public class RecursiveParserImpl implements Parser{
 			} else {
 				constant.setValue(false);
 			}
+		}
+		if (tmp.toString().length() > 0 && !isConstant && !isVariable) {
+			Variable var = new Variable();
+			var.setVariable(tmp.toString());
+			exp = var;
 		}
 		if (!parentheses) {
 			return exp;

@@ -1,4 +1,4 @@
-package com.danilov.bool4j.util;
+package ru.matlog.bool4j.util;
 
 import java.util.HashMap;
 import java.util.Map;
