@@ -1,4 +1,4 @@
-package com.danilov.bool4j.util;
+package ru.matlog.bool4j.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Класс для удобного хранения списка пар "переменная - значение"
+ * с возможностью итерации значений
+ * @author Семён
+ *
+ */
 public class VariablesSet {
 	
 	private HashMap<String, Boolean> variables;
@@ -26,14 +32,24 @@ public class VariablesSet {
 		return variables;
 	}
 	
+	/**
+	 * переход к следующему набору значение переменных
+	 */
 	public void moveToNext() {
 		increment();
 	}
 	
+	/**
+	 * @return  Пока не 1....1
+	 */
 	public boolean notEnd() {
 		return counter < Math.pow(2, keySet.size());
 	}
 	
+	/**
+	 * 
+	 * @return имена всех переменных
+	 */
 	public List<String> getKeySet() {
 		return keySet;
 	}

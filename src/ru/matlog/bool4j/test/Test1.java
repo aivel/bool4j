@@ -1,4 +1,4 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
 import java.util.Set;
 
@@ -10,8 +10,8 @@ import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators;
+import ru.matlog.bool4j.util.Util;
 
-import com.danilov.bool4j.util.Util;
 
 public class Test1 implements ITest {
 

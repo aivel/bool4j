@@ -1,4 +1,4 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
 import java.util.List;
 import java.util.Map;
@@ -8,9 +8,9 @@ import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
+import ru.matlog.bool4j.util.Util;
+import ru.matlog.bool4j.util.VariablesSet;
 
-import com.danilov.bool4j.util.Util;
-import com.danilov.bool4j.util.VariablesSet;
 
 public class Test3 implements ITest {
 

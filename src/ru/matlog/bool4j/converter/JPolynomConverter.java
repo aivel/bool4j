@@ -1,4 +1,4 @@
-package com.danilov.converter;
+package ru.matlog.bool4j.converter;
 
 /*
  * Конвертер выражения в полином Жегалкина
@@ -14,8 +14,8 @@ import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
 import ru.matlog.bool4j.expression.operator.Operators;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
+import ru.matlog.bool4j.util.VariablesSet;
 
-import com.danilov.bool4j.util.VariablesSet;
 
 public class JPolynomConverter implements Converter {
 

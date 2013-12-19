@@ -1,6 +1,6 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
-import com.danilov.bool4j.util.Util;
+import ru.matlog.bool4j.util.Util;
 
 public class MainTest {
 

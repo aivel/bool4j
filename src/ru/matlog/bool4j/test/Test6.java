@@ -1,22 +1,22 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ru.matlog.bool4j.converter.TruthTable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
+import ru.matlog.bool4j.util.Util;
 
-import com.danilov.bool4j.util.Util;
-import com.danilov.converter.TruthTable;
 
 public class Test6 implements ITest {
 
 	@Override
 	public void test() {
-		ArrayList<String> vl = new ArrayList<>();
+		ArrayList<String> vl = new ArrayList<String>();
 		
 		Util.Log("getVarsDefenitionRange():");
 		
@@ -33,7 +33,7 @@ public class Test6 implements ITest {
 		
 		Parser p = new RecursiveParserImpl();
 		Expression expr = p.parse("1");
-		ArrayList<Expression> el = new ArrayList<>();
+		ArrayList<Expression> el = new ArrayList<Expression>();
 		el.add(expr);
 		
 		Map<String, List<Boolean>> trt = TruthTable.getTruthTable(vl, el);

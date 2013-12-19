@@ -1,4 +1,4 @@
-package com.danilov.converter;
+package ru.matlog.bool4j.converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import ru.matlog.bool4j.expression.function.Function;
 import ru.matlog.bool4j.expression.function.Functions;
 import ru.matlog.bool4j.expression.operator.Operator;
 import ru.matlog.bool4j.expression.operator.Operators;
+import ru.matlog.bool4j.util.Util;
+import ru.matlog.bool4j.util.VariablesSet;
 
-import com.danilov.bool4j.util.Util;
-import com.danilov.bool4j.util.VariablesSet;
 
-public class SKNFConverter implements Converter {
+public class SDNFConverter implements Converter {
 
 	@Override
 	public Expression convert(final Expression expression) {
@@ -28,7 +28,7 @@ public class SKNFConverter implements Converter {
 		while(variablesSet.notEnd()) {
 			Map<String, Boolean> variables = variablesSet.get();
 			Boolean calculatedValue = calculable.with(variables).calculate();
-			if (!calculatedValue) {
+			if (calculatedValue) {
 				variablesSets.add(Util.cloneMap(variables));
 			}
 			variablesSet.moveToNext();
@@ -41,18 +41,18 @@ public class SKNFConverter implements Converter {
 	
 	private Expression toExpression(final List<Map<String, Boolean>> variablesSets, final List<String> keys) {
 		Expression finalResult = null;
-		Operator res = Operators.getOperator("*");
+		Operator res = Operators.getOperator("+");
 		Operator tmp;
 		Operator tmp2;
 		for (Map<String, Boolean> set : variablesSets) {
-			tmp = Operators.getOperator("+");
+			tmp = Operators.getOperator("*");
 			for (String key : keys) {
 				Expression exp;
 				Boolean val = set.get(key);
 				Variable variable = new Variable();
 				variable.setVariable(key);
 				exp = variable;
-				if (val) {
+				if (!val) {
 					Function f = Functions.getFunction("neg");
 					f.setArguments(exp);
 					exp = f;
@@ -61,26 +61,26 @@ public class SKNFConverter implements Converter {
 					tmp.setFirstOperand(exp);
 				} else if (tmp.firstOperandSet() && tmp.secondOperandSet()) {
 					tmp2 = tmp;
-					tmp = Operators.getOperator("+");
+					tmp = Operators.getOperator("*");
 					tmp.setFirstOperand(tmp2);
 					tmp.setSecondOperand(exp);
 				} else if (tmp.firstOperandSet()){
 					tmp.setSecondOperand(exp);
 				}
 			}
-			Expression sumRes = tmp;
+			Expression mulRes = tmp;
 			if (tmp.getSecondOperand() == null) {
-				sumRes = tmp.getFirstOperand();
+				mulRes = tmp.getFirstOperand();
 			}
 			if (!res.firstOperandSet()) {
-				res.setFirstOperand(sumRes);
+				res.setFirstOperand(mulRes);
 			} else if (res.firstOperandSet() && res.secondOperandSet()) {
 				tmp2 = res;
-				res = Operators.getOperator("*");
+				res = Operators.getOperator("+");
 				res.setFirstOperand(tmp2);
-				res.setSecondOperand(sumRes);
+				res.setSecondOperand(mulRes);
 			} else if (res.firstOperandSet()) {
-				res.setSecondOperand(sumRes);
+				res.setSecondOperand(mulRes);
 			}
 		}
 		finalResult = res;

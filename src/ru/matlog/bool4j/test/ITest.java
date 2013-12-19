@@ -1,4 +1,4 @@
-package com.danilov.bool4j.test;
+package ru.matlog.bool4j.test;
 
 public interface ITest {
 	
