@@ -82,7 +82,7 @@ public class RecursiveParserImpl implements Parser{
 				constant.setValue(false);
 			}
 		}
-		if (tmp.toString().length() > 0 && !isConstant && !isVariable) {
+		if (tmp.toString().length() > 0 && !isConstant && !isVariable && !isFunction) {
 			Variable var = new Variable();
 			var.setVariable(tmp.toString());
 			exp = var;
@@ -123,7 +123,7 @@ public class RecursiveParserImpl implements Parser{
 	private Expression[] parseArgs(final String str, final Counter count) {
 		String argsString = extractArgsString(str);
 		count.i += argsString.length() + 2;
-		argsString = argsString.substring(1, argsString.length() - 2);
+		argsString = argsString.substring(1, argsString.length() - 1);
 		String[] args = argsString.split(",");
 		Expression[] arguments = new Expression[args.length];
 		for (int i = 0; i < args.length; i++) {
