@@ -52,7 +52,7 @@ public class Variable extends Expression {
 
 	@Override
 	public void validate() {
-		if (var.equals(" ")) {
+		if (var.equals(" ") || var.equals("")) {
 			throw new ValidationException("Переменная пробел - не лучший выбор");
 		}
 	}
