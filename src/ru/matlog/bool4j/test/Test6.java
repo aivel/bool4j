@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import ru.matlog.bool4j.closures.ClosureClasses;
 import ru.matlog.bool4j.converter.TruthTable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
@@ -39,6 +40,9 @@ public class Test6 implements ITest {
 		Map<String, List<Boolean>> trt = TruthTable.getTruthTable(vl, el);
 		
 		Util.Log("String representation:\n" + TruthTable.toString(trt));
+		
+		expr = p.parse("(!Z * X)");
+		Util.Log("(!(Z) * X): " + ClosureClasses.getClosureClass("L").whetherBelongs(expr));
 	}
 
 }

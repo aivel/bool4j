@@ -20,7 +20,7 @@ import ru.matlog.bool4j.util.VariablesSet;
  * Класс для хранения всех видов классов замкнутости
  * 
  * @author Max
- *
+ * 
  */
 public class ClosureClasses {
 
@@ -83,10 +83,13 @@ public class ClosureClasses {
 			boolean belongs = true;
 			int n = vars.getKeySet().size(); // Количество переменных
 			int size = (int) Math.pow(2, n);
-			Calculable calc = expr.toCalculable(new RecursiveCalculableFactoryImpl());
-			for(int i = 0; i < (size / 2); i++) {
-				Pair p1 = getVariableSetStringAndValue(calc, i, vars.getKeySet());
-				Pair p2 = getVariableSetStringAndValue(calc, size - 1 - i, vars.getKeySet());
+			Calculable calc = expr
+					.toCalculable(new RecursiveCalculableFactoryImpl());
+			for (int i = 0; i < (size / 2); i++) {
+				Pair p1 = getVariableSetStringAndValue(calc, i,
+						vars.getKeySet());
+				Pair p2 = getVariableSetStringAndValue(calc, size - 1 - i,
+						vars.getKeySet());
 				if (p1.val != p2.val) {
 					belongs = false;
 					break;
@@ -111,10 +114,12 @@ public class ClosureClasses {
 			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
 			int n = vars.getKeySet().size(); // Количество переменных
 			int n2 = (int) Math.pow(2, n);
-			
-			Calculable calc = expr.toCalculable(new RecursiveCalculableFactoryImpl());
+
+			Calculable calc = expr
+					.toCalculable(new RecursiveCalculableFactoryImpl());
 			for (int i = 0; i < n2; i++) {
-				Pair iPair = getVariableSetStringAndValue(calc, i, vars.getKeySet());
+				Pair iPair = getVariableSetStringAndValue(calc, i,
+						vars.getKeySet());
 				for (int j = i; j < n2; j++) {
 					if (i != j) {
 						boolean diff = false; // Есть ли различия в двух
@@ -123,7 +128,8 @@ public class ClosureClasses {
 												// сравниваемых строках -
 												// досрочно вышли из цикла
 
-						Pair jPair = getVariableSetStringAndValue(calc, j, vars.getKeySet());
+						Pair jPair = getVariableSetStringAndValue(calc, j,
+								vars.getKeySet());
 						String str1 = iPair.str;
 						String str2 = jPair.str;
 						for (int k = 0; k < n; k++) {
@@ -132,7 +138,7 @@ public class ClosureClasses {
 									brea = true;
 									break;
 								}
-								
+
 								diff = true;
 							}
 						}
@@ -154,52 +160,52 @@ public class ClosureClasses {
 
 			return true;
 		}
-		
-		
 
 		@Override
 		public String getStringRepresentation() {
 			return REPRESENTATION;
 		}
 	}
-		
+
 	public static final class L extends ClosureClass {
-	    public static final String REPRESENTATION = "L";
-	    
-	    private boolean isLinear(final Expression expr) {
-	            if (expr.getType() == ExpressionType.OPERATOR) {
-	                    Expression op1 = ((Operator) expr).getFirstOperand();
-	                    Expression op2 = ((Operator) expr).getSecondOperand();
-	                    
-	                    if (expr instanceof CONJUNCTION)
-	                            return false;
-	                    else
-	                    if (expr instanceof XOR)
-	                            return isLinear(op1) && isLinear(op2);
-	            }
-	            
-	            return true;
-	    }
-	
-	    @Override
-	    public boolean whetherBelongs(final Expression expr) {
-	            JPolynomConverter jcon = new JPolynomConverter();
-	            Expression jpol = jcon.convert(expr);
-	             
-	            if (jpol.getType() == ExpressionType.OPERATOR) {
-	                    Expression op1 = ((Operator) jpol).getFirstOperand();
-	                    Expression op2 = ((Operator) jpol).getSecondOperand();
-	                    
-	                    return isLinear(op1) && isLinear(op2);
-	            }
-	            
-	            return true;
-	   }
-	
-       @Override
-       public String getStringRepresentation() {
-               return REPRESENTATION;
-       }
+		public static final String REPRESENTATION = "L";
+
+		private boolean isLinear(final Expression expr) {
+			if (expr.getType() == ExpressionType.OPERATOR) {
+				Expression op1 = ((Operator) expr).getFirstOperand();
+				Expression op2 = ((Operator) expr).getSecondOperand();
+
+				if (expr instanceof CONJUNCTION)
+					return false;
+				else if (expr instanceof XOR)
+					return isLinear(op1) && isLinear(op2);
+			}
+
+			return true;
+		}
+
+		@Override
+		public boolean whetherBelongs(final Expression expr) {
+			JPolynomConverter jcon = new JPolynomConverter();
+			Expression jpol = jcon.convert(expr);
+
+			if (jpol instanceof CONJUNCTION)
+				return false;
+			
+			if (jpol.getType() == ExpressionType.OPERATOR) {
+				Expression op1 = ((Operator) jpol).getFirstOperand();
+				Expression op2 = ((Operator) jpol).getSecondOperand();
+
+				return isLinear(op1) && isLinear(op2);
+			}
+
+			return true;
+		}
+
+		@Override
+		public String getStringRepresentation() {
+			return REPRESENTATION;
+		}
 	}
 
 	static {
@@ -216,7 +222,9 @@ public class ClosureClasses {
 
 	/**
 	 * Получение объекта класса замкнутости по названию
-	 * @param representation строковое представление
+	 * 
+	 * @param representation
+	 *            строковое представление
 	 * @return класс замкнутости
 	 */
 	public static ClosureClass getClosureClass(final String representation) {
@@ -231,17 +239,18 @@ public class ClosureClasses {
 
 		return cc;
 	}
-	
+
 	private static class Pair {
 		String str;
 		Boolean val;
 	}
-	
-	private static Pair getVariableSetStringAndValue(final Calculable calc, final int pos, final List<String> variables) {
+
+	private static Pair getVariableSetStringAndValue(final Calculable calc,
+			final int pos, final List<String> variables) {
 		Pair p = new Pair();
 		StringBuilder stringBuilder = new StringBuilder();
 		Map<String, Boolean> vars = new HashMap<String, Boolean>();
-		for (int i = variables.size() - 1; i >= 0 ; i--) {
+		for (int i = variables.size() - 1; i >= 0; i--) {
 			int pow = (int) Math.pow(2, i);
 			int varVal = (pos / pow) % 2;
 			boolean boolVal = varVal == 1 ? true : false;
