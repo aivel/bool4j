@@ -3,9 +3,10 @@ package ru.matlog.bool4j.expression.operator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import ru.matlog.bool4j.expression.Expression;
 
+import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.ExpressionType;
+import ru.matlog.bool4j.expression.ValidationException;
 
 /**
  *
@@ -46,7 +47,7 @@ public abstract class Operator extends Expression {
 
     @Override
     public Set<String> getVariablesNames() {
-        Set<String> set = new HashSet<>();
+        Set<String> set = new HashSet<String>();
         set.addAll(getFirstOperand().getVariablesNames());
         set.addAll(getSecondOperand().getVariablesNames());
         return set;
@@ -54,25 +55,13 @@ public abstract class Operator extends Expression {
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        ExpressionType type1 = firstOperand.getType();
-        if (type1 == ExpressionType.OPERATOR) {
-            builder.append("(");
-            builder.append(firstOperand.toString());
-            builder.append(")");
-        } else {
-            builder.append(firstOperand.toString());
-        }
+        builder.append("(");
+        builder.append(firstOperand.toString());
         builder.append(" ");
         builder.append(getStringRepresentation());
         builder.append(" ");
-        ExpressionType type2 = secondOperand.getType();
-        if (type2 == ExpressionType.OPERATOR) {
-            builder.append("(");
-            builder.append(secondOperand.toString());
-            builder.append(")");
-        } else {
-            builder.append(secondOperand.toString());
-        }
+        builder.append(secondOperand.toString());
+        builder.append(")");
         return builder.toString();
     }
     
@@ -83,6 +72,22 @@ public abstract class Operator extends Expression {
     @Override
     public Boolean calculate(Map<String, Boolean> variables) {
         return apply(variables);
+    }
+    
+    @Override
+    public void validate() {
+    	if (firstOperand != null) {
+    		firstOperand.validate();
+    	} else {
+    		throw new ValidationException("Ошибка в операторе [" + getStringRepresentation() + "], " +
+    				"не хватает первого операнда");
+    	}
+    	if (secondOperand != null) {
+    		secondOperand.validate();
+    	} else {
+    		throw new ValidationException("Ошибка в операторе [" + getStringRepresentation() + "], " +
+    				"не хватает второго операнда");
+    	}
     }
 
 }
